@@ -1,0 +1,107 @@
+{
+  "trigger_prefix": {
+    "description": "触发指令前缀",
+    "type": "string",
+    "default": "//bot",
+    "hint": "审核群内以该前缀 + 空格 + 稿件id 触发审核，例如 //bot 5555。"
+  },
+  "enable_web_search": {
+    "description": "审核时联网搜索",
+    "type": "bool",
+    "default": true,
+    "hint": "开启后，插件会拿稿件正文联网检索（用于核实时事、热梗、隐藏的地域/事件信息），把检索结果一并交给模型判断。"
+  },
+  "search_api_key": {
+    "description": "搜索 API Key（必填）",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "联网检索用的 AnySearch API Key。获取方式：访问 https://anysearch.com 注册后在控制台创建 API Key，粘贴到此处。请求地址与格式已内置，无需填写。留空则跳过联网检索。"
+  },
+  "max_search_results": {
+    "description": "联网搜索结果条数",
+    "type": "int",
+    "default": 5,
+    "slider": { "min": 1, "max": 10, "step": 1 },
+    "hint": "每次审核最多抓取的搜索结果条数，越大越慢、消耗越多。"
+  },
+  "llm_provider_id": {
+    "description": "审核用大模型",
+    "type": "string",
+    "default": "",
+    "hint": "留空则使用当前会话默认模型；也可指定一个模型提供商 ID。",
+    "_special": "select_provider"
+  },
+  "notification_scan_limit": {
+    "description": "回溯消息条数",
+    "type": "int",
+    "default": 30,
+    "slider": { "min": 5, "max": 200, "step": 5 },
+    "hint": "审核群内查找稿件内容时，最多向前回溯多少条群消息。稿件通知发出后通常就在最近几条，一般 30 足够。"
+  },
+  "cache_ttl_hours": {
+    "description": "稿件缓存保留时长（小时）",
+    "type": "int",
+    "default": 72,
+    "slider": { "min": 1, "max": 336, "step": 1 },
+    "hint": "超过该时长未命中的稿件缓存会被自动清理。默认 72 小时（3 天）。"
+  },
+  "cache_max_per_group": {
+    "description": "单群缓存稿件上限",
+    "type": "int",
+    "default": 50,
+    "slider": { "min": 10, "max": 500, "step": 10 },
+    "hint": "每个审核群最多缓存多少条稿件通知，超出淘汰最旧的。"
+  },
+  "cache_max_groups": {
+    "description": "缓存群数量上限",
+    "type": "int",
+    "default": 50,
+    "slider": { "min": 5, "max": 500, "step": 5 },
+    "hint": "最多同时缓存多少个群的稿件，超出淘汰最久未活动的群。"
+  },
+  "review_rules": {
+    "description": "稿件规则（一套规则对应一个审核 QQ 群）",
+    "type": "template_list",
+    "templates": {
+      "rule_group": {
+        "name": "规则 - 审核群 对应项",
+        "hint": "填写一个审核 QQ 群群号与它使用的稿件规则。QQ 群号与规则一一对应。",
+        "display_item": "group_id",
+        "hide_hint_in_list": true,
+        "items": {
+          "group_id": {
+            "description": "审核 QQ 群群号",
+            "type": "string",
+            "default": "",
+            "hint": "该群内发送 //bot <id> 时，使用本条目下方的规则进行审核。"
+          },
+          "wall_name": {
+            "description": "校园墙名称",
+            "type": "string",
+            "default": "",
+            "hint": "可选。本群对应的校园墙名称，如「中山中学校园墙」。会作为背景信息交给模型。"
+          },
+          "school_name": {
+            "description": "学校名称",
+            "type": "string",
+            "default": "",
+            "hint": "可选。如「中山中学」。用于判断稿件中的时间/地点/人物是否可核实。"
+          },
+          "region": {
+            "description": "学校所在地区",
+            "type": "string",
+            "default": "",
+            "hint": "可选。如「广西桂林」「广东中山」。用于判断稿件中不明确的地域信息、时事、热梗。"
+          },
+          "rules": {
+            "description": "稿件规则",
+            "type": "text",
+            "default": "",
+            "hint": "逐条写清该墙的审核规则，例如：1) 禁止含真实姓名/班级；2) 禁止人身攻击；3) 禁止广告…。模型会依据这些规则判定。"
+          }
+        }
+      }
+    }
+  }
+}

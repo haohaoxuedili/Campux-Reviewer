@@ -1,0 +1,13 @@
+name: astrbot_plugin_campux_review
+display_name: Campux 稿件审核助手
+desc: 配合 Campux 校园墙使用的稿件审核插件。在审核群发送 `//bot 稿件id` 即可自动读取该稿件内容、联网检索相关信息，并按该群绑定的稿件规则判断是否违规，给出通过/拒绝建议、原因及发布影响。
+short_desc: Campux 稿件智能审核，联网核查 + 规则判定。
+version: 1.0.0
+author: haohaoxuedili
+repo: https://github.com/haohaoxuedili/Campux-Reviewer
+astrbot_version: ">=4.5.7"
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - telegram
+  - discord

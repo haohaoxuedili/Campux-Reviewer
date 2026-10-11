@@ -339,7 +339,7 @@ def _build_prompt(post: CampuxPost, rules: str, search_text: str, school_info: d
     "astrbot_plugin_campux_review",
     "haohaoxuedili",
     "配合 Campux 的稿件审核助手：//bot <稿件id> 触发联网核查 + 规则判定",
-    "1.0.0",
+    "1.1.0",
 )
 class CampuxReviewPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig | None = None):

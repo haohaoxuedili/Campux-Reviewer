@@ -1,8 +1,8 @@
-# Campux-Reviewer — Campux 稿件审核助手
+# Campux-Reviewer — Campux 稿件审核助手（AstrBot 插件）
 
-> 校园墙稿件审核助手（AstrBot 插件）。审核群内发送 `//bot <稿件id>`，自动读取该稿件通知内容、联网检索相关信息，并按该群绑定的稿件规则给出**通过/拒绝建议、判定原因及发布影响**。
+> **AstrBot 插件**。校园墙稿件审核助手：审核群内发送 `//bot <稿件id>`，自动读取该稿件通知内容、联网检索相关信息，并按该群绑定的稿件规则给出**通过/拒绝建议、判定原因及发布影响**。
 
-配合 [Campux](https://github.com/idoknow/Campux) 校园墙使用的 AstrBot 审核插件。
+本插件为 **[AstrBot](https://github.com/AstrBotDevs/AstrBot) 机器人框架的插件**，配合 [Campux](https://github.com/idoknow/Campux) 校园墙系统使用。
 在**审核 QQ 群**里发送 `//bot 稿件id`，插件自动：
 
 1. 按群号找到该群**绑定的稿件规则**（一个审核群 ↔ 一套规则）；
@@ -12,8 +12,14 @@
 
 ## 安装
 
-把本目录放到 AstrBot 的 `data/plugins/astrbot_plugin_campux_review/` 下，
-在 WebUI → 插件 页面重载即可。
+这是一个 **AstrBot 插件**，按 AstrBot 插件的常规方式安装：
+
+- **推荐**：AstrBot WebUI → 插件市场 / 从文件安装 → 上传本插件 zip 包；
+- 或手动：把本目录放到 AstrBot 的 `data/plugins/astrbot_plugin_campux_review/` 下，
+  在 WebUI → 插件 页面重载即可。
+
+> 注意：本插件依赖 AstrBot `>=4.5.7`，需要先在 AstrBot 中配置好一个可用的对话模型
+> **并开启「流式输出」**（部分中转只支持流式，非流式会返回空内容导致审核失败）。
 
 **联网检索**：用 **AnySearch 接口**（零依赖，标准库实现）。
 请求地址与格式已内置在插件里，**你只需在配置页填 API Key**
